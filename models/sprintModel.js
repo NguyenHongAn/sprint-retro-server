@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const sprintSchema = new Schema({
     userID: {
         type: Schema.Types.ObjectId,
-        ref: "user",
+        ref: "users",
     },
     title:  {
         type: String,
@@ -18,18 +18,19 @@ const sprintSchema = new Schema({
     },
     createTime: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: true,
     },
     members: Number,
     columns: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'column',
+            ref: 'columns',
         }
     ]
 });
 
 //create model and export model
-const sprintModel = mongoose.model("sprint", sprintSchema);
+const sprintModel = mongoose.model("sprints", sprintSchema);
 
 module.exports = sprintModel;

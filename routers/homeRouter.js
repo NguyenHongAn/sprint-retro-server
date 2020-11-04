@@ -2,13 +2,13 @@
 const express = require('express');
 
 //get module sprint controller
-const sprintControls = require('../controllers/sprintController');
 
-const sprintRouter = express.Router();
 
-sprintRouter.get('/', async (req,res)=>{
-  let allSprints = sprintControls.allSprints();
-    res.send(allSprints);
+const homeRouter = express.Router();
+
+homeRouter.get('/', async (req,res)=>{
+  //res.status(200);
+  res.send("Successfull connnect with server");
 
         // boards:[
         //     {
@@ -34,4 +34,4 @@ sprintRouter.get('/', async (req,res)=>{
 
 
 
-module.exports = sprintRouter;
+module.exports = homeRouter;

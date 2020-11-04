@@ -1,0 +1,56 @@
+[
+    {
+        "columnType": 0,
+        "isActive": true,
+        "order": 0,
+        "comment" : ""
+    },
+    {
+        "columnType": 1,
+        "isActive": true,
+        "order": 0,
+        "comment" : ""
+    },
+    {
+        "columnType": 2,
+        "isActive": true,
+        "order": 0,
+        "comment" : ""
+    },
+    {
+        "columnType": 0,
+        "isActive": true,
+        "order": 0,
+        "comment" : ""
+    },
+    {
+        "columnType": 1,
+        "isActive": true,
+        "order": 0,
+        "comment" : ""
+    },
+    {
+        "columnType": 2,
+        "isActive": true,
+        "order": 0,
+        "comment" : ""
+    },
+    {
+        "columnType": 0,
+        "isActive": true,
+        "order": 0,
+        "comment" : ""
+    },
+    {
+        "columnType": 1,
+        "isActive": true,
+        "order": 0,
+        "comment" : ""
+    },
+    {
+        "columnType": 2,
+        "isActive": true,
+        "order": 0,
+        "comment" : ""
+    }
+]

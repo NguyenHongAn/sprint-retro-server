@@ -1,12 +1,14 @@
 const express = require('express');
 const cors = require('cors');
-
+const passport = require('passport');
 const bodyParser = require('body-parser');
 const connection = require('./db/mongoDB');
 let log = console.log;
 
 //import module router
-const sprintRouter = require('./routers/sprintRouter.js');
+const homeRouter = require('./routers/homeRouter.js');
+const dasboardRouter = require('./routers/dashboardRouter');
+const userRouter = require('./routers/userRouter');
 //midleware import
 
              
@@ -26,6 +28,9 @@ const PORT = process.env.PORT;
 const HOST_NAME = process.env.HOST_NAME;
 
 //switch router for handle request from client
-app.use(sprintRouter);
+app.use(homeRouter);
+app.use(dasboardRouter);
+app.use(userRouter);
+
 
 app.listen(PORT,()=> {console.log(`SERVER START: ${HOST_NAME} AT PORT: ${PORT}`)});

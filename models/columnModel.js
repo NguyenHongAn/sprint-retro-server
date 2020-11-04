@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const columnSchema = new Schema({
     sprintID: {
         type: Schema.Types.ObjectId,
-        ref: 'sprint',
+        ref: 'sprints',
     },
     columnType: {
         type: Number,
@@ -14,15 +14,14 @@ const columnSchema = new Schema({
         type: Boolean,
         required: true,
     },
-    cards: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'card',
-        }
-    ],
+    order: {
+        type: Number,
+        required: true,
+    },
+    comment: String,
 });
 
-const columnModel = mongoose.model('column', columnSchema);
+const columnModel = mongoose.model('columns', columnSchema);
 
 module.exports = columnModel;
 

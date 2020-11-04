@@ -18,17 +18,15 @@ const userSchema = new Schema({
         default: Date.now,
         type: Date,
     },
-    DOB: Date,
-    gender: Boolean,
     sprints: [
         {
             type: Schema.Types.ObjectId,
-            ref: "sprint",
+            ref: "sprints",
         }
     ]
 });
 
 
-const userModel = mongoose.model("user", userSchema);
+const userModel = mongoose.model("users", userSchema);
 
 module.exports = userModel;
