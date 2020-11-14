@@ -7,66 +7,101 @@ const dashboardRouter = express.Router();
 
 //dashboard page ===================================================
 dashboardRouter.get('/dashboard', async (req,res, next) =>{
-    let allSprints = await sprintControls.allSprints();
-    res.send({
+    try {
+        const allSprints = await sprintControls.allSprints();
+        res.send({
         boards: allSprints,
-    });
+        });
+    } catch (error) {
+        return next(error);
+    }
+    
 });
 
 dashboardRouter.post('/dashboard', async (req,res, next) =>{
     const newSprint = req.body;
-    const result = await sprintControls.addNewSprint(newSprint);
-    console.log(result);
-    res.send(result);
+    try {
+        const result = await sprintControls.addNewSprint(newSprint);
+        res.send(result);
+    } catch (error) {
+        return next(error);
+    }
+    
 });
 
 dashboardRouter.delete('/dashboard', async (req,res, next) =>{
-    let sprintId = req.body.object;
-    console.log(sprintId);
-    const result = sprintControls.deleteSprint(sprintId);
-    res.send(result);
+    const sprint = req.body.object;
+    console.log({sprint});
+    try {
+        const result = await sprintControls.deleteSprint(sprint._id, sprint.userID);
+        res.send(result);
+    } catch (error) {
+        return next(error);
+    }
+   
 });
 
 // column page ==================================================================
 dashboardRouter.get('/dashboard/:sprintId', async (req,res, next) =>{
-    let sprint = await sprintControls.getSprintBySprintId(req.params.sprintId);
-    res.send(sprint);
+    try {
+        const sprint = await sprintControls.getSprintBySprintId(req.params.sprintId);
+        res.send(sprint);
+    } catch (error) {
+        return next(error);
+    }
+    
 });
 
 dashboardRouter.post('/dashboard/:sprintId', async (req,res, next) =>{
     const newComment = req.body;
     const id = req.params.sprintId;
+    try {
+        const result = await columnControls.addNewComment(id, newComment);
     
-    let result = await columnControls.addNewComment(id, newComment);
-    
-    res.send(result);
+        res.send(result);
+    } catch (error) {
+        return next(error);
+    }
+   
 });
 
 dashboardRouter.put('/dashboard/:sprintId',async (req,res, next) =>{
-    let id = req.params.sprintId;
-    let sprint = req.body;
-   
-    let result = await sprintControls.changeSprintInfo(id, sprint);
-    //console.log(result);
-    res.send(result);
+    const id = req.params.sprintId;
+    const sprint = req.body;
+    try {
+        const result = await sprintControls.changeSprintInfo(id, sprint);
+        res.send(result);
+    } catch (error) {
+        return next(error);
+    }
+    
 });
 
 
 dashboardRouter.put('/dashboard/:sprintId/:columnId',async (req,res, next) =>{
-    let id = req.params.columnId;
-    let column = req.body;
-    
-    let result = await columnControls.changeColumnInfo(id, column);
-    //console.log(result);
-    res.send(result);
+    const id = req.params.columnId;
+    const column = req.body;
+    try {
+        const result = await columnControls.changeColumnInfo(id, column);
+        //console.log(result);
+        res.send(result);
+    } catch (error) {
+        return next(error);
+    }
+   
 });
 
 dashboardRouter.delete('/dashboard/:sprintId/:columnId',async (req,res, next) =>{
-    let columnid = req.params.columnId;
-    let sprintid = req.params.sprintId;
-    let result = await columnControls.deleteColumn(sprintid,columnid);
-    //console.log(result);
-    res.send(result);
+    const columnid = req.body.object;
+    const sprintid = req.params.sprintId;
+    try {
+        const result = await columnControls.deleteColumn(sprintid,columnid);
+        res.send(result);
+    } catch (error) {
+
+        return next(error);
+    }
+    
 });
 
 module.exports = dashboardRouter;
