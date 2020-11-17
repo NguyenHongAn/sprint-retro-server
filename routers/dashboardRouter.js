@@ -1,14 +1,18 @@
 const express= require('express');
+const jwt = require('jsonwebtoken');
 
 const sprintControls = require('../controllers/sprintController');
-const columnControls = require('../controllers/columnController');
 const dashboardRouter = express.Router();
 
 
+const {authenticateJWT} = require("../middlewares/passportService");
+
 //dashboard page ===================================================
-dashboardRouter.get('/dashboard', async (req,res, next) =>{
+dashboardRouter.get('/dashboard',authenticateJWT,async (req,res, next) =>{
+
     try {
-        const allSprints = await sprintControls.allSprints();
+        const userID = req.user.userAuth._id;
+        const allSprints = await sprintControls.getSprintsByUserId(userID);
         res.send({
         boards: allSprints,
         });
@@ -18,8 +22,10 @@ dashboardRouter.get('/dashboard', async (req,res, next) =>{
     
 });
 
-dashboardRouter.post('/dashboard', async (req,res, next) =>{
+dashboardRouter.post('/dashboard',authenticateJWT,async (req,res, next) =>{
+        
     const newSprint = req.body;
+    newSprint.userID = req.user.userAuth._id;
     try {
         const result = await sprintControls.addNewSprint(newSprint);
         res.send(result);
@@ -29,76 +35,14 @@ dashboardRouter.post('/dashboard', async (req,res, next) =>{
     
 });
 
-dashboardRouter.delete('/dashboard', async (req,res, next) =>{
+dashboardRouter.delete('/dashboard', authenticateJWT,async (req,res, next) =>{
+  
     const sprint = req.body.object;
-    console.log({sprint});
+    //console.log({sprint});
     try {
         const result = await sprintControls.deleteSprint(sprint._id, sprint.userID);
         res.send(result);
     } catch (error) {
-        return next(error);
-    }
-   
-});
-
-// column page ==================================================================
-dashboardRouter.get('/dashboard/:sprintId', async (req,res, next) =>{
-    try {
-        const sprint = await sprintControls.getSprintBySprintId(req.params.sprintId);
-        res.send(sprint);
-    } catch (error) {
-        return next(error);
-    }
-    
-});
-
-dashboardRouter.post('/dashboard/:sprintId', async (req,res, next) =>{
-    const newComment = req.body;
-    const id = req.params.sprintId;
-    try {
-        const result = await columnControls.addNewComment(id, newComment);
-    
-        res.send(result);
-    } catch (error) {
-        return next(error);
-    }
-   
-});
-
-dashboardRouter.put('/dashboard/:sprintId',async (req,res, next) =>{
-    const id = req.params.sprintId;
-    const sprint = req.body;
-    try {
-        const result = await sprintControls.changeSprintInfo(id, sprint);
-        res.send(result);
-    } catch (error) {
-        return next(error);
-    }
-    
-});
-
-
-dashboardRouter.put('/dashboard/:sprintId/:columnId',async (req,res, next) =>{
-    const id = req.params.columnId;
-    const column = req.body;
-    try {
-        const result = await columnControls.changeColumnInfo(id, column);
-        //console.log(result);
-        res.send(result);
-    } catch (error) {
-        return next(error);
-    }
-   
-});
-
-dashboardRouter.delete('/dashboard/:sprintId/:columnId',async (req,res, next) =>{
-    const columnid = req.body.object;
-    const sprintid = req.params.sprintId;
-    try {
-        const result = await columnControls.deleteColumn(sprintid,columnid);
-        res.send(result);
-    } catch (error) {
-
         return next(error);
     }
     

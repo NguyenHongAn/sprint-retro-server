@@ -5,8 +5,8 @@ const handleError = require("../utils/handleError");
 
 const sprintController = {
     
-    allSprints: async () =>{
-        const [sprints,error] = await handleError(sprintModel.find().populate("columns").exec());
+    getSprintsByUserId: async (userID) =>{
+        const [sprints,error] = await handleError(sprintModel.find({userID: userID}).populate("columns").exec());
         if (error)
         {
             throw error;
@@ -87,7 +87,7 @@ const sprintController = {
             //update number of sprint of user
             const [user, userErr] = await handleError(userModel.findById(userId));
             if (userErr) {throw userError}
-            console.log({user});
+            //console.log({user});
             user.sprints = user.sprints.filter(sprintid => !sprintid.equals(sprintId));
             await user.save();
             return result;

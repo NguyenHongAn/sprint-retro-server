@@ -37,7 +37,7 @@ const columnControls = {
         }
         else if (result)
         {
-            console.log({changedCol});
+            //console.log({changedCol});
             return changedCol;
         }
         throw new Error("Problem occupy");
@@ -59,7 +59,7 @@ const columnControls = {
             }
             else if (sprint)
             {
-                console.log(columnid);
+                //console.log(columnid);
               
                 sprint["columns"] = sprint["columns"].filter(columnID => !columnID.equals(columnid) );
                 
