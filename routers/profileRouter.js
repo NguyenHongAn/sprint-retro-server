@@ -11,6 +11,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 profileRouter.get("/profile", authenticateJWT, (req,res,next)=>{
     
     //get user info from jwt 
+    console.log(req.user.userAuth);
     res.status(200).send(req.user.userAuth);
 });
 
@@ -23,7 +24,6 @@ profileRouter.post("/profile", authenticateJWT, async (req,res,next) =>{
     const isEmailChange = req.body.isEmailChange;
     //B2: create new user from data 
     changedUser._id =  userID;
-    
     //B2.1: check if user is change password
     if (isPasswordChange)
     {

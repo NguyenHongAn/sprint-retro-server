@@ -13,10 +13,8 @@ require('./middlewares/passport');
 const homeRouter = require('./routers/homeRouter.js');
 const dasboardRouter = require('./routers/dashboardRouter');
 const columnRouter = require('./routers/columnRouter');
-const userRouter = require('./routers/userRouter');
+const authRouter = require('./routers/authRouter');
 const profileRouter = require('./routers/profileRouter.js');
-
-
 
 //json web token
              
@@ -42,14 +40,16 @@ app.use(passport.initialize());
 //require('./middlewares/passport');
 
 //const variable
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
 const HOST_NAME = process.env.HOST_NAME;
+
+//cerate https server
 
 //switch router for handle request from client
 app.use(homeRouter);
 app.use(profileRouter);
 app.use(dasboardRouter);
-app.use(userRouter);
+app.use(authRouter);
 app.use(columnRouter);
 
 //error handle
@@ -57,7 +57,7 @@ app.use(columnRouter);
 //     const err = new Error('Not Found');
 //     err.status = 404;
 //     res.send(err);
-//   });
+//   });    
 
 
 app.listen(PORT,()=> {console.log(`SERVER START: ${HOST_NAME} AT PORT: ${PORT}`)});

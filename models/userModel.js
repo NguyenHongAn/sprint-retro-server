@@ -14,6 +14,18 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    facebookProvider: {
+       
+        id: String,
+        token: String
+        
+    },
+    googleProvider: {
+      
+        id: String,
+        token: String
+       
+    },
     createTime: {
         default: Date.now,
         type: Date,

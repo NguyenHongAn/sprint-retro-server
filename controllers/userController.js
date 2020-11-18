@@ -1,7 +1,6 @@
 const userModel = require('../models/userModel');
 const handleError = require("../utils/handleError");
-// const bcrypt = require('bcrypt');
-// const SALT_ROUND = parseInt(process.env.SALT_ROUND);
+
 
 const {hashPassword, comparePassword} = require('../utils/bcryptFunc');
 
@@ -79,7 +78,9 @@ const userControlls = {
     },
 
     updateUserInfo: async (newUser) =>{
-        let [user, error] = await handleError(userModel.findOneAndUpdate({_id: newUser._id}, newUser));
+        let [user, error] = await handleError(userModel.findOneAndUpdate({_id: newUser._id}, newUser, {
+            new: true
+          }));
         if (error)
         {
             throw error;

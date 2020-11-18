@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 
 const hashPassword = (password) =>{
