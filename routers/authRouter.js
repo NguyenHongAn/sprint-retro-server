@@ -58,18 +58,18 @@ authRouter.get("/auth/facebook/callback", async (req,res,next)=>{
     passport.authenticate('facebook',{session: false}, (error,userAuth, info) =>{    
         if (error || !userAuth) { 
             
-            return res.redirect(`${clientURL}/auth/signin`);
+            return res.redirect(`${clientURL}/#/auth/signin`);
         }
         else{
             req.login(userAuth, (error)=>{
                 if (error)
                 {
-                    return res.redirect(`${hostURL}/auth/signin`);
+                    return res.redirect(`${hostURL}/#/auth/signin`);
                 }
                 const token = jwt.sign({userAuth}, SECRET_KEY, { expiresIn: '4h' });
                 res.cookie("jwt-token", token);
                 // return token to client
-                return res.redirect(`${clientURL}/auth/signin`);
+                return res.redirect(`${clientURL}/#/auth/signin`);
             });
         }
     })(req,res,next);
@@ -88,18 +88,18 @@ authRouter.get('/auth/google/callback', async (req,res,next)=>{
     passport.authenticate('google',{session: false,}, (error,userAuth, info) =>{    
         if (error || !userAuth) { 
             
-            return res.redirect(`${clientURL}/auth/signin`);
+            return res.redirect(`${clientURL}/#/auth/signin`);
         }
         else{
             req.login(userAuth, (error)=>{
                 if (error)
                 {
-                    return res.redirect(`${hostURL}/auth/signin`);
+                    return res.redirect(`${hostURL}/#/auth/signin`);
                 }
                 const token = jwt.sign({userAuth}, SECRET_KEY, { expiresIn: '4h' });
                 res.cookie("jwt-token", token);
                 // return token to client
-                return res.redirect(`${clientURL}/auth/signin`);
+                return res.redirect(`${clientURL}/#/auth/signin`);
             });
         }
     })(req,res,next);

@@ -93,14 +93,7 @@ passport.use('google', new GoogleStrategy(
 
 //prevent auto login of facebook 
 //REF: https://stackoverflow.com/questions/12873960/passport-js-facebook-strategy-logout-issue
-// FacebookStrategy.prototype.authorizationParams = function (options) {
-//     var params = {},
-//         display = options.display,
-//         auth_type = options.auth_type;
-//     if (display) params['display'] = display;
-//     if (auth_type) params['auth_type'] = auth_type;
-//     return params;
-//   };
+
 
 passport.use('facebook', new FacebookStrategy(
     {
@@ -108,7 +101,6 @@ passport.use('facebook', new FacebookStrategy(
         clientSecret: config.facebookAuth.clientSecret,
         callbackURL: config.facebookAuth.callbackURL,
         profileFields: config.facebookAuth.profileFields,
-        authType: 'reauthenticate',
     },async (accessToken, refreshToken, profile, cb) =>{
         
         //B1: cerate new User, based on user's info from facebook

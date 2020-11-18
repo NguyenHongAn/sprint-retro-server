@@ -6,9 +6,7 @@ const cookieParser = require('cookie-parser');
 const connection = require('./db/mongoDB');
 const logger = require("morgan");
 
-require('./middlewares/passport');
 
-//const verifyToken = require('./middlewares/verifyToken');
 //import module router
 const homeRouter = require('./routers/homeRouter.js');
 const dasboardRouter = require('./routers/dashboardRouter');
@@ -20,7 +18,6 @@ const profileRouter = require('./routers/profileRouter.js');
              
 //config
 const app = express();
-
 // connect mongoDB
 connection();
 
@@ -37,7 +34,8 @@ app.use(bodyParser.urlencoded({
 
 //init passport
 app.use(passport.initialize());
-//require('./middlewares/passport');
+
+require('./middlewares/passport');
 
 //const variable
 const PORT = process.env.PORT || 8000;
@@ -52,12 +50,6 @@ app.use(dasboardRouter);
 app.use(authRouter);
 app.use(columnRouter);
 
-//error handle
-// app.use(function(req, res, next) {
-//     const err = new Error('Not Found');
-//     err.status = 404;
-//     res.send(err);
-//   });    
 
 
 app.listen(PORT,()=> {console.log(`SERVER START: ${HOST_NAME} AT PORT: ${PORT}`)});
