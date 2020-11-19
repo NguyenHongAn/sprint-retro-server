@@ -1,5 +1,6 @@
 const hostURL = process.env.ENV === "develop" ? process.env.DEV_HOST : process.env.PRODUCT_HOST;
-const clientURL = process.env.ENV === "develop" ? process.env.DEV_CLIENT_URL: process.env.PRO_CLIENT_URL;
+const clientURL = process.env.ENV === "develop" ? process.env.DEV_CLIENT_URL: process.env.PRODUCT_CLIENT_URL;
+console.log({hostURL, clientURL});
 module.exports = {
      facebookAuth : {
         clientID     : process.env.FACEBOOK_ID,
