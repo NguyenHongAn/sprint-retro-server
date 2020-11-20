@@ -87,13 +87,14 @@ authRouter.post('/auth/google', async (req,res,next)=>{
 authRouter.get('/auth/google/callback', async (req,res,next)=>{
     passport.authenticate('google',{session: false,}, (error,userAuth, info) =>{    
         if (error || !userAuth) { 
-            
+            console.log(error);
             return res.redirect(`${clientURL}/#/auth/signin`);
         }
         else{
             req.login(userAuth, (error)=>{
                 if (error)
                 {
+                    console.log(error);
                     return res.redirect(`${hostURL}/#/auth/signin`);
                 }
                 const token = jwt.sign({userAuth}, SECRET_KEY, { expiresIn: '4h' });

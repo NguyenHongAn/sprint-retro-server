@@ -75,7 +75,7 @@ passport.use('google', new GoogleStrategy(
             },
             password: hashPassword(profile.id),
         });
-      
+        console.log({passport: user});
         //B2: Create user if email not exist
         const [result,error] = await handleError( userModel.findOne({email: user.email }));
         if (error)
